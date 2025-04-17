@@ -17,6 +17,8 @@ def app():
 def client(app):
     return app.test_client()
 
-def test_home_page(client):
+def test_home_page():  # ¡El nombre DEBE empezar con "test_"
+    app = create_app()
+    client = app.test_client()
     response = client.get('/')
-    assert response.status_code == 200  # Verifica que la ruta raíz funcione
+    assert response.status_code == 200
