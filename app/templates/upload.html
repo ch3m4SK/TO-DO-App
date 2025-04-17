@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Subir Archivo a S3</h1>
+
+<form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="file" class="form-label">Selecciona un archivo:</label>
+        <input type="file" class="form-control" name="file" id="file" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Subir</button>
+</form>
+
+{% if message %}
+    <div class="alert alert-success mt-4">{{ message }}</div>
+{% endif %}
+{% endblock %}
