@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mb-4">Lista de Tareas</h1>
+<form action="{{ url_for('add_task') }}" method="post" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="content" class="form-control" placeholder="Nueva tarea..." required>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+    </div>
+</form>
+
+<ul class="list-group">
+    {% for task in tasks %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span class="{% if task.done %}text-decoration-line-through{% endif %}">
+            {{ task.content }}
+        </span>
+        <div>
+            <a href="{{ url_for('toggle_task', id=task.id) }}" class="btn btn-sm btn-success me-2">
+                {% if task.done %}Desmarcar{% else %}Completar{% endif %}
+            </a>
+            <a href="{{ url_for('delete_task', id=task.id) }}" class="btn btn-sm btn-danger">Eliminar</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
