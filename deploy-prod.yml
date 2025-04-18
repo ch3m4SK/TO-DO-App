@@ -1,0 +1,18 @@
+- name: Desplegar app en Producción
+  hosts: prod
+  become: yes
+  vars:
+    app_version: "latest"
+
+  tasks:
+    - name: Detener y eliminar contenedores antiguos
+      command: docker-compose -f /opt/app/docker-compose.prod.yml down
+
+    - name: Clonar repositorio
+      git:
+        repo: https://github.com/tu-usuario/tu-repo.git
+        dest: /opt/app
+        version: main
+
+    - name: Iniciar servicios
+      command: docker-compose -f /opt/app/docker-compose.prod.yml up -d
